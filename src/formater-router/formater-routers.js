@@ -1,8 +1,8 @@
-/*const path = require('path');
+const path = require('path');
 const express = require('express')
 const xss = require('xss')
 //const debug = require('debug')('express:view')
-const FoldersService = require('./folders-service')
+const FoldersService = require('./formater-service')
 
 const foldersRouter = express.Router()
 const jsonParser = express.json()
@@ -103,4 +103,4 @@ foldersRouter
             .catch(next)
     })
 
-module.exports = foldersRouter*/
+module.exports = foldersRouter
