@@ -1,10 +1,12 @@
 const path = require('path');
 const express = require('express')
 const xss = require('xss')
+const fs = require('fs');
 //const debug = require('debug')('express:view')
-const FoldersService = require('./formater-service')
+const FoldersService = require('./formater-service');
+const { response } = require('../app');
 
-const foldersRouter = express.Router()
+const formateRouter = express.Router()
 const jsonParser = express.json()
 
 const serialize = folder => ({
@@ -12,15 +14,13 @@ const serialize = folder => ({
     folder_name: folder.folder_name
 })
 
-foldersRouter
+formateRouter
     .route('/')
     .get((req, res, next) => {
-        const knexInstance = req.app.get('db');
-        FoldersService.getAllFolders(knexInstance)
-            .then(folders => {
-                res.json(folders.map(serialize))
-            })
-            .catch(next)
+        
+        res
+        .status(200).end()
+  
     })
     .post(jsonParser, (req, res, next) => {
         const { folder_name } = req.body;
@@ -46,7 +46,7 @@ foldersRouter
             .catch(next)
     })
 
-foldersRouter
+    formateRouter
     .route('/folder/:folder_id')
     .all((req, res, next) => {
         FoldersService.getById(
@@ -83,13 +83,13 @@ foldersRouter
         const { folder_name } = req.body;
         const folderToUpdate = { folder_name }
 
-     
+
         if (!folder_name) {
             return res.status(400).json({
-                error: {message: `Request body must contain a folder_name `}
+                error: { message: `Request body must contain a folder_name ` }
             })
         }
-        
+
         FoldersService.updateFolder(
             req.app.get('db'),
             req.params.folder_id,
@@ -103,4 +103,4 @@ foldersRouter
             .catch(next)
     })
 
-module.exports = foldersRouter
+module.exports = formateRouter
