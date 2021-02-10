@@ -6,7 +6,7 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 //winston is a logger
 const winston = require('winston');
-const formateRouter = require("./formater-router/formater-routers") 
+const formatRouter = require("./formatter-router/formatter") 
 
 const app = express()
 
@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
     res.send('Hello, world!')
 })
 
-app.use('/fs', formateRouter)
+app.use('/fs', formatRouter)
 
 app.use(function errorHandler(error, req, res, next) {
     let response

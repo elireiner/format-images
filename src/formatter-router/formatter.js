@@ -3,10 +3,9 @@ const express = require('express')
 const xss = require('xss')
 const fs = require('fs');
 //const debug = require('debug')('express:view')
-const FoldersService = require('./formater-service');
-const { response } = require('../app');
+const FoldersService = require('./formatter-service');
 
-const formateRouter = express.Router()
+const formatRouter = express.Router()
 const jsonParser = express.json()
 
 const serialize = folder => ({
@@ -14,13 +13,21 @@ const serialize = folder => ({
     folder_name: folder.folder_name
 })
 
-formateRouter
+formatRouter
     .route('/')
     .get((req, res, next) => {
-        
-        res
-        .status(200).end()
-  
+
+        const content = 'Some content!!!!'
+
+        try {
+          const data = fs.appendFile('/Users/eliriner/24hours/formate-images/src/formatter-router/test.txt', content, err => {})
+          //file written successfully
+        } catch (err) {
+          console.error(err)
+        }
+            res.status(200).end()
+   
+
     })
     .post(jsonParser, (req, res, next) => {
         const { folder_name } = req.body;
@@ -46,7 +53,7 @@ formateRouter
             .catch(next)
     })
 
-    formateRouter
+formatRouter
     .route('/folder/:folder_id')
     .all((req, res, next) => {
         FoldersService.getById(
@@ -103,4 +110,4 @@ formateRouter
             .catch(next)
     })
 
-module.exports = formateRouter
+module.exports = formatRouter
