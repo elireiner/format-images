@@ -25,19 +25,14 @@ formatRouter
 
         fetch(url)
             .then((res) => {
-
                 fs.writeFile(path, res, (err) => {
                     if (err) {
-                      console.error(err)
-                      return
+                        console.error(err)
                     }
-                    //file written successfully
-                  })
+                    res.status(200).end()
+                })
             })
             .catch(next)
-        res.status(200).end()
-
-
     })
 
 
