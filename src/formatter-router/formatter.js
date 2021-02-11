@@ -1,18 +1,13 @@
 const path = require('path');
 const express = require('express');
-const xss = require('xss');
+//const xss = require('xss');
 const fs = require('fs');
 const fetch = require('node-fetch');
 //const debug = require('debug')('express:view')
-const FoldersService = require('./formatter-service');
+//const FoldersService = require('./formatter-service');
 
 const formatRouter = express.Router()
-const jsonParser = express.json()
-
-const serialize = folder => ({
-    id: folder.id,
-    folder_name: folder.folder_name
-})
+//const jsonParser = express.json()
 
 formatRouter
     .route('/')
